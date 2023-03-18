@@ -1,13 +1,17 @@
-FROM node:18.15.0
+FROM node:latest
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+ENV DB_URI mongodb://mongo_contenedor:27017/myapp
+ENV JWT_SECRET="secret"
+ENV PORT=1000
 
-CMD ["node", "index.js"]
+EXPOSE 1000
+
+CMD ["npm", "run", "dev"]

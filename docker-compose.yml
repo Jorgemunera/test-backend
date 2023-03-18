@@ -1,27 +1,17 @@
-version: '3.9'
-
+version: "3.9"
 services:
-  # app:
-  #   image: my-app
-  #   container_name: nodeserver
-  #   restart: on-failure
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - PORT=3000
-  #     - MONGODB_URI=mongodb://root:1234@mongodb:27017/?authMechanism=DEFAULT&tls=false
-  #     - JWT_SECRET=secret
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - mongodb
-
-  mongodb:
-    image: mongo:5.0
-    ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=1234
+  mongo:
+    image: mongo:latest
+    container_name: mongo_contenedor
+    restart: always
     volumes:
-      - ./mongo_data:/data/db
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  app:
+    build: .
+    restart: always
+    ports:
+      - "3000:1000"
+    depends_on:
+      - mongo
