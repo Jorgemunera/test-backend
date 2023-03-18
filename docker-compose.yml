@@ -5,7 +5,7 @@ services:
     container_name: mongo_contenedor
     restart: always
     volumes:
-      - ./data:/data/db
+      - ./mongo_data:/data/db
     ports:
       - "27017:27017"
   app:
